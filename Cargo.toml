@@ -1,0 +1,15 @@
+[package]
+name = "unifi_protect"
+version = "0.1.0"
+edition = "2021"
+homepage = "https://github.com/xlfpx/unifi_protect_rust"
+repository = "https://github.com/xlfpx/unifi_protect_rust"
+description = "An SDK for interacting with a unifi protect server"
+authors = ["Lars Frölich"]
+license = "GPL-3.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+http= "0.2.9"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

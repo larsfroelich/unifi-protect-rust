@@ -407,22 +407,22 @@ pub struct SmartDetectSettings {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RecordingSchedule {
-    // Define the fields here if needed
+    // fields unknown
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct MotionZone {
-    // Define the fields here if needed
+    // fields unknown
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PrivacyZone {
-    // Define the fields here if needed
+    // fields unknown
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SmartDetectZone {
-    // Define the fields here if needed
+    // fields unknown
 }
 
 #[derive(Debug, Deserialize, Serialize)]

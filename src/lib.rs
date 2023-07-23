@@ -33,20 +33,17 @@ impl UnifiProtectServer {
         }
 
         // Log in
-        let endpoint = self.uri.clone() + "/api/auth/login";
-        let params = json!({
-            "password": password,
-            "rememberMe": true,
-            "username": username,
-            "token": ""
-        });
-
         let response = Client::builder()
             .danger_accept_invalid_certs(true)
             .build().unwrap()
-            .post(endpoint)
+            .post(&(self.uri.clone() + "/api/auth/login"))
             .headers(self.headers.clone())
-            .json(&params)
+            .json(&json!({
+                "password": password,
+                "rememberMe": true,
+                "username": username,
+                "token": ""
+            }))
             .send()
             .await
             .expect("Failed to make login request");
@@ -135,7 +132,7 @@ impl UnifiProtectServer {
             .danger_accept_invalid_certs(true)
             .build()
             .unwrap()
-            .get("https://192.168.1.28/proxy/protect/api/cameras")
+            .get(&(self.uri.to_string() + "/proxy/protect/api/cameras"))
             .headers(self.headers.clone())
             .send()
             .await
@@ -163,7 +160,7 @@ mod tests {
 
     #[tokio::test]
     async fn login_test() {
-        let mut server = UnifiProtectServer::new("https://192.168.1.28");
+        let mut server = UnifiProtectServer::new("BASE_URI"); // ( e.g. "https://192.168.1.28")
         server.login("USERNAME", "PASSWORD")
             .await.expect("Failed to login");
         println!("Logged in!");
@@ -172,7 +169,7 @@ mod tests {
 
     #[tokio::test]
     async fn fetch_cameras_test() {
-        let mut server = UnifiProtectServer::new("https://192.168.1.28");
+        let mut server = UnifiProtectServer::new("BASE_URI"); // ( e.g. "https://192.168.1.28")
         server.login("USERNAME", "PASSWORD")
             .await.expect("Failed to login");
         server.fetch_cameras()

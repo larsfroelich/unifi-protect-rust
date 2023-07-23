@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EventStats {
@@ -397,80 +397,79 @@ pub struct ExtenderSettings {
     has_radar: Option<bool>,
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct SmartDetectSettings {
+pub struct SmartDetectSettings {
     object_types: Vec<String>,
     auto_tracking_object_types: Vec<String>,
     audio_types: Vec<String>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct RecordingSchedule {
+pub struct RecordingSchedule {
     // Define the fields here if needed
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct MotionZone {
+pub struct MotionZone {
     // Define the fields here if needed
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct PrivacyZone {
+pub struct PrivacyZone {
     // Define the fields here if needed
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct SmartDetectZone {
+pub struct SmartDetectZone {
     // Define the fields here if needed
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct SmartDetectLine {
+pub struct SmartDetectLine {
     // fields unknown
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraFocus {
+pub struct CameraFocus {
     steps: CameraSteps,
     degrees: CameraDegrees,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraPan {
+pub struct CameraPan {
     steps: CameraSteps,
     degrees: CameraDegrees,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraTilt {
+pub struct CameraTilt {
     steps: CameraSteps,
     degrees: CameraDegrees,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraZoom {
+pub struct CameraZoom {
     steps: CameraSteps,
     degrees: CameraDegrees,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraSteps {
+pub struct CameraSteps {
     max: Option<i32>,
     min: Option<i32>,
     step: Option<i32>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct CameraDegrees {
+pub struct CameraDegrees {
     max: Option<i32>,
     min: Option<i32>,
     step: Option<i32>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-struct Hotplug {
+pub struct Hotplug {
     audio: Option<bool>,
     video: Option<bool>,
     extender: Extender,
@@ -478,7 +477,7 @@ struct Hotplug {
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct Extender {
+pub struct Extender {
     is_attached: bool,
     has_flash: Option<bool>,
     has_ir: Option<bool>,
@@ -487,128 +486,125 @@ struct Extender {
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct WiredConnectionState {
+pub struct WiredConnectionState {
     phy_rate: Option<i32>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct UnifiProtectCamera {
-    is_deleting: bool,
-    mac: String,
-    host: String,
-    connection_host: String,
-    connected_since: Option<i64>,
-    state: String,
-    hardware_revision: String,
-    firmware_version: String,
-    latest_firmware_version: String,
-    firmware_build: String,
-    is_updating: bool,
+    pub is_deleting: bool,
+    pub mac: String,
+    pub host: String,
+    pub name: String,
+    pub connection_host: String,
+    pub connected_since: Option<i64>,
+    pub state: String,
+    pub hardware_revision: String,
+    pub firmware_version: String,
+    pub latest_firmware_version: String,
+    pub firmware_build: String,
+    pub is_updating: bool,
     #[serde(alias = "isDownloadingFW")]
-    is_downloading_fw: bool,
-    fw_update_state: String,
-    is_adopting: bool,
-    is_adopted: bool,
-    is_adopted_by_other: bool,
-    is_provisioned: bool,
-    is_rebooting: bool,
-    is_ssh_enabled: bool,
-    can_adopt: bool,
-    is_attempting_to_connect: bool,
-    guid: Option<String>,
-    last_motion: i64,
-    mic_volume: i32,
-    is_mic_enabled: bool,
-    is_recording: bool,
-    is_wireless_uplink_enabled: bool,
-    is_motion_detected: bool,
-    is_smart_detected: bool,
-    phy_rate: f64,
-    hdr_mode: bool,
-    video_mode: String,
-    is_probing_for_wifi: bool,
-    ap_mac: Option<String>,
-    ap_rssi: Option<i32>,
-    ap_mgmt_ip: Option<String>,
-    element_info: Option<String>,
-    chime_duration: i32,
-    is_dark: bool,
-    last_privacy_zone_position_id: Option<i64>,
-    last_ring: Option<i64>,
-    is_live_heatmap_enabled: bool,
-    anonymous_device_id: String,
-    event_stats: EventStats,
-    video_reconfiguration_in_progress: bool,
-    voltage: Option<i32>,
-    use_global: bool,
-    is_poor_network: bool,
-    stop_stream_level: Option<i32>,
-    is_waterproof_case_attached: bool,
-    last_disconnect: i64,
-    user_configured_ap: bool,
-    wired_connection_state: WiredConnectionState,
-    channels: Vec<Channel>,
-    isp_settings: IspSettings,
-    talkback_settings: TalkbackSettings,
-    osd_settings: OsdSettings,
-    led_settings: LedSettings,
-    speaker_settings: SpeakerSettings,
-    recording_settings: RecordingSettings,
-    smart_detect_settings: SmartDetectSettings,
-    recording_schedules: Vec<RecordingSchedule>,
-    motion_zones: Vec<MotionZone>,
-    privacy_zones: Vec<PrivacyZone>,
-    smart_detect_zones: Vec<SmartDetectZone>,
-    smart_detect_lines: Vec<SmartDetectLine>,
-    stats: Stats,
-    feature_flags: FeatureFlags,
-    pir_settings: PIRSettings,
-    lcd_message: HashMap<String, String>,
-    wifi_connection_state: WifiConnectionState,
-    lenses: Vec<String>,
-    stream_sharing: StreamSharing,
-    homekit_settings: HomekitSettings,
-    id: String,
-    nvr_mac: String,
-    is_connected: bool,
-    platform: String,
-    has_speaker: bool,
-    has_wifi: bool,
-    audio_bitrate: i32,
-    can_manage: bool,
-    is_managed: bool,
-    market_name: String,
+    pub is_downloading_fw: bool,
+    pub fw_update_state: String,
+    pub is_adopting: bool,
+    pub is_adopted: bool,
+    pub is_adopted_by_other: bool,
+    pub is_provisioned: bool,
+    pub is_rebooting: bool,
+    pub is_ssh_enabled: bool,
+    pub can_adopt: bool,
+    pub is_attempting_to_connect: bool,
+    pub guid: Option<String>,
+    pub last_motion: i64,
+    pub mic_volume: i32,
+    pub is_mic_enabled: bool,
+    pub is_recording: bool,
+    pub is_wireless_uplink_enabled: bool,
+    pub is_motion_detected: bool,
+    pub is_smart_detected: bool,
+    pub phy_rate: f64,
+    pub hdr_mode: bool,
+    pub video_mode: String,
+    pub is_probing_for_wifi: bool,
+    pub ap_mac: Option<String>,
+    pub ap_rssi: Option<i32>,
+    pub ap_mgmt_ip: Option<String>,
+    pub element_info: Option<String>,
+    pub chime_duration: i32,
+    pub is_dark: bool,
+    pub last_privacy_zone_position_id: Option<i64>,
+    pub last_ring: Option<i64>,
+    pub is_live_heatmap_enabled: bool,
+    pub anonymous_device_id: String,
+    pub event_stats: EventStats,
+    pub video_reconfiguration_in_progress: bool,
+    pub voltage: Option<i32>,
+    pub use_global: bool,
+    pub is_poor_network: bool,
+    pub stop_stream_level: Option<i32>,
+    pub is_waterproof_case_attached: bool,
+    pub last_disconnect: i64,
+    pub user_configured_ap: bool,
+    pub wired_connection_state: WiredConnectionState,
+    pub channels: Vec<Channel>,
+    pub isp_settings: IspSettings,
+    pub talkback_settings: TalkbackSettings,
+    pub osd_settings: OsdSettings,
+    pub led_settings: LedSettings,
+    pub speaker_settings: SpeakerSettings,
+    pub recording_settings: RecordingSettings,
+    pub smart_detect_settings: SmartDetectSettings,
+    pub recording_schedules: Vec<RecordingSchedule>,
+    pub motion_zones: Vec<MotionZone>,
+    pub privacy_zones: Vec<PrivacyZone>,
+    pub smart_detect_zones: Vec<SmartDetectZone>,
+    pub smart_detect_lines: Vec<SmartDetectLine>,
+    pub stats: Stats,
+    pub feature_flags: FeatureFlags,
+    pub pir_settings: PIRSettings,
+    pub lcd_message: HashMap<String, String>,
+    pub wifi_connection_state: WifiConnectionState,
+    pub lenses: Vec<String>,
+    pub stream_sharing: StreamSharing,
+    pub homekit_settings: HomekitSettings,
+    pub id: String,
+    pub nvr_mac: String,
+    pub is_connected: bool,
+    pub platform: String,
+    pub has_speaker: bool,
+    pub has_wifi: bool,
+    pub audio_bitrate: i32,
+    pub can_manage: bool,
+    pub is_managed: bool,
+    pub market_name: String,
     #[serde(alias = "is4K")]
-    is4k: bool,
+    pub is4k: bool,
     #[serde(alias = "is2K")]
-    is2k: bool,
-    model_key: String,
+    pub is2k: bool,
+    pub model_key: String,
 }
-
 
 #[cfg(test)]
 mod tests {
+    use crate::unifi_protect_camera::UnifiProtectCamera;
     use std::fs::File;
     use std::io::Read;
-    use crate::unifi_protect_camera::UnifiProtectCamera;
 
     #[test]
     fn main() {
         // Open the JSON file
-        let mut file = File::open("./src/sample_data/cameras.json")
-            .expect("Failed to open file");
+        let mut file = File::open("./src/sample_data/cameras.json").expect("Failed to open file");
         // Read the file contents into a String
         let mut cameras_json = String::new();
-        file.read_to_string(&mut cameras_json).expect("Failed to read file");
+        file.read_to_string(&mut cameras_json)
+            .expect("Failed to read file");
 
-        // Parse the JSON data into the UnifiProtectCamera struct using Serde
+        // Parse the JSON data into the UnifiProtectCamera pub struct using Serde
         let cameras: Vec<UnifiProtectCamera> = serde_json::from_str(&cameras_json).unwrap();
 
-        // Print the UnifiProtectCamera struct
+        // Print the UnifiProtectCamera pub struct
         println!("{:?}", cameras);
     }
 }
-
-
-

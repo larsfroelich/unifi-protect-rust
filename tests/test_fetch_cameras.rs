@@ -4,6 +4,7 @@ mod tests {
     use unifi_protect::UnifiProtectServer;
 
     #[tokio::test]
+    #[ignore]
     async fn fetch_cameras_test() {
         let mut server = UnifiProtectServer::new("BASE_URI"); // ( e.g. "https://192.168.1.28")
         server.login("USERNAME", "PASSWORD")

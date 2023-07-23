@@ -2,7 +2,8 @@ mod camera;
 mod auth;
 mod api;
 
-pub use camera::UnifiProtectCamera;
+pub use camera::*;
+
 use reqwest::header::HeaderMap;
 
 pub struct UnifiProtectServer {

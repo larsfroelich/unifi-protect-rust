@@ -28,8 +28,6 @@ pub struct StreamSharing {
     max_streams: Option<i32>,
 }
 
-
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CameraFocus {
     steps: CameraSteps,

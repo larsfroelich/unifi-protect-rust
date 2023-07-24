@@ -1,7 +1,7 @@
 pub mod feature_flags;
 pub mod settings;
-pub mod stats;
 pub mod state;
+pub mod stats;
 pub mod util;
 
 use feature_flags::*;
@@ -12,7 +12,6 @@ use util::*;
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -112,9 +111,9 @@ pub struct UnifiProtectCamera {
 
 #[cfg(test)]
 mod tests {
+    use crate::UnifiProtectCamera;
     use std::fs::File;
     use std::io::Read;
-    use crate::UnifiProtectCamera;
 
     #[test]
     fn main() {

@@ -1,6 +1,6 @@
+use crate::UnifiProtectServer;
 use reqwest::Client;
 use serde_json::json;
-use crate::UnifiProtectServer;
 
 impl UnifiProtectServer {
     pub async fn login(&mut self, username: &str, password: &str) -> Result<(), &str> {
@@ -17,7 +17,8 @@ impl UnifiProtectServer {
         // Log in
         let response = Client::builder()
             .danger_accept_invalid_certs(true)
-            .build().unwrap()
+            .build()
+            .unwrap()
             .post(&(self.uri.clone() + "/api/auth/login"))
             .headers(self.headers.clone())
             .json(&json!({
@@ -108,6 +109,4 @@ impl UnifiProtectServer {
     pub fn clear_login_credentials(&mut self) {
         self.headers.remove("Cookie");
     }
-
-
 }

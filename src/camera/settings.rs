@@ -99,7 +99,6 @@ pub struct PIRSettings {
     timelapse_transfer_interval: i32,
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct HomekitSettings {
@@ -109,7 +108,6 @@ pub struct HomekitSettings {
     speaker_muted: bool,
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SmartDetectSettings {
@@ -117,7 +115,6 @@ pub struct SmartDetectSettings {
     auto_tracking_object_types: Vec<String>,
     audio_types: Vec<String>,
 }
-
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RecordingSchedule {

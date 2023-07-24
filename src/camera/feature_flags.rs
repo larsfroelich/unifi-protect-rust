@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -145,7 +145,6 @@ pub struct ZoomDegrees {
     min: Option<i32>,
     step: Option<i32>,
 }
-
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct HotplugSettings {

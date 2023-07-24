@@ -1,5 +1,5 @@
-use reqwest::Client;
 use crate::{UnifiProtectCamera, UnifiProtectServer};
+use reqwest::Client;
 
 impl UnifiProtectServer {
     pub async fn fetch_cameras(&mut self) -> Result<(), &str> {
@@ -28,4 +28,3 @@ impl UnifiProtectServer {
         Ok(())
     }
 }
-

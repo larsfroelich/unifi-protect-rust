@@ -3,6 +3,7 @@ mod tests {
     use unifi_protect::UnifiProtectServer;
 
     #[tokio::test]
+    #[ignore]
     async fn download_daily() {
         let mut server = UnifiProtectServer::new("BASE_URI"); // ( e.g. "https://192.168.1.28")
         server

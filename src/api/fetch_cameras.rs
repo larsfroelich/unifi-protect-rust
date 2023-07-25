@@ -2,7 +2,7 @@ use crate::{UnifiProtectCamera, UnifiProtectServer};
 use reqwest::Client;
 
 impl UnifiProtectServer {
-    pub async fn fetch_cameras(&mut self) -> Result<(), &str> {
+    pub async fn fetch_cameras(&mut self) -> Result<(), String> {
         let response = Client::builder()
             .danger_accept_invalid_certs(true)
             .build()
@@ -16,12 +16,12 @@ impl UnifiProtectServer {
         // Something went wrong with the login call, possibly a controller reboot or failure.
         if !response.status().is_success() {
             println!("Failed to fetch cameras: {}", response.status());
-            return Err("Failed to make cameras request!");
+            return Err(String::from("Failed to make cameras request!"));
         }
 
         let parsed_cameras_result = response.json::<Vec<UnifiProtectCamera>>().await;
         if parsed_cameras_result.is_err() {
-            return Err("Failed to parse camera-data!");
+            return Err(format!("Failed to parse camera-data: {}", parsed_cameras_result.err().unwrap().to_string()));
         }
         self.cameras = parsed_cameras_result.unwrap();
 

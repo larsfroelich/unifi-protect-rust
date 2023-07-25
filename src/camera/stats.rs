@@ -74,6 +74,6 @@ pub struct VideoStats {
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StorageStats {
-    used: i64,
-    rate: f64,
+    used: Option<i64>,
+    rate: Option<f64>,
 }

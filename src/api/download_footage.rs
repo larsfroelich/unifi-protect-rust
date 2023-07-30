@@ -12,16 +12,23 @@ impl UnifiProtectServer {
         start_unix: i64,
         end_unix: i64,
     ) -> Result<bool, String> {
-        for i in 0..4 {
+        for channel in 0..4 {
             let endpoint = format!(
                 "{}/proxy/protect/api/video/export?camera={}\
+                {}\
                 &channel={}\
                 &filename={}.mp4\
                 &lens=0\
                 &start={}\
                 &end={}\
                 &type={}",
-                self.uri, camera.id, i, camera.mac, start_unix, end_unix, recording_type
+                self.uri, camera.id,
+                (if recording_type == "timelapse" {
+                    "&fps=4"
+                } else {
+                    ""
+                }),
+                channel, camera.mac, start_unix, end_unix, recording_type
             );
 
             let response = Client::builder()

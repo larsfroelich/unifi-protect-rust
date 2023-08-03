@@ -1,7 +1,7 @@
 # UniFi-Protect Rust Library
 
 [![Crates.io](https://img.shields.io/crates/v/unifi-protect.svg)](https://crates.io/crates/unifi-protect)
-[![Docs.rs](https://docs.rs/unifi-protect/badge.svg)](https://docs.rs/unifi-protect)
+[![Docs.rs](https://docs.rs/unifi_protect/badge.svg)](https://docs.rs/unifi_protect)
 [![Build Status](https://travis-ci.org/xlfpx/unifi_protect_rust.svg?branch=main)](https://travis-ci.org/xlfpx/unifi_protect_rust)
 
 This library enables interacting with a unifi protect server (such as the one running on a ubiquiti cloud key gen2).

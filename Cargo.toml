@@ -1,6 +1,6 @@
 [package]
 name = "unifi_protect"
-version = "0.4.5"
+version = "0.4.6"
 edition = "2021"
 homepage = "https://github.com/xlfpx/unifi_protect_rust"
 repository = "https://github.com/xlfpx/unifi_protect_rust"

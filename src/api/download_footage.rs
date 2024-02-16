@@ -57,8 +57,9 @@ impl UnifiProtectServer {
                     }else {
                         eprintln!("Unknown Error - Status Code: {}", status_code);
                     }
+                    eprintln!("Failed to download video.");
+                    continue;
                 }
-                return Err("Failed to download video.".to_string());
             }
             let mut file = std::fs::File::create(output_path).expect("Failed to create file");
             let mut content = Cursor::new(response.bytes().await.expect("Failed to get bytes"));

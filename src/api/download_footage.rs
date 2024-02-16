@@ -1,4 +1,4 @@
-use crate::camera::UnifiProtectCamera;
+use crate::camera::{UnifiProtectCameraSimple};
 use crate::{ErrorResponse, UnifiProtectServer};
 use reqwest::Client;
 use std::io::Cursor;
@@ -6,7 +6,7 @@ use std::io::Cursor;
 impl UnifiProtectServer {
     pub async fn download_footage(
         &self,
-        camera: &UnifiProtectCamera,
+        camera: &UnifiProtectCameraSimple,
         output_path: &str,
         recording_type: &str,
         start_unix: i64,

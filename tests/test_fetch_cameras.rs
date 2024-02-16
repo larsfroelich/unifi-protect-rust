@@ -11,7 +11,7 @@ mod tests {
             .await
             .expect("Failed to login");
         server
-            .fetch_cameras()
+            .fetch_cameras(true)
             .await
             .expect("Failed to fetch cameras");
 

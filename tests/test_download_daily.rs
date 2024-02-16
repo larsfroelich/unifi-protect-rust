@@ -11,16 +11,16 @@ mod tests {
             .await
             .expect("Failed to login");
         server
-            .fetch_cameras()
+            .fetch_cameras(false)
             .await
             .expect("Failed to fetch cameras");
-        println!("Found {} cameras", server.cameras.len());
+        println!("Found {} cameras", server.cameras_simple.len());
         println!(
             "Downloading rotating video for camera '{}'",
-            server.cameras[0].name
+            server.cameras_simple[0].name
         );
 
-        let camera = &server.cameras[0];
+        let camera = &server.cameras_simple[0];
         server
             .download_footage(
                 camera,

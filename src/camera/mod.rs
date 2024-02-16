@@ -15,6 +15,16 @@ use std::collections::HashMap;
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+pub struct UnifiProtectCameraSimple {
+    pub id: String,
+    pub mac: String,
+    pub host: String,
+    pub name: String,
+    pub is_connected: bool,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct UnifiProtectCamera {
     pub is_deleting: bool,
     pub mac: String,

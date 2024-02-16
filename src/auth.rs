@@ -10,9 +10,7 @@ impl UnifiProtectServer {
         }
 
         // Make sure we have a CSRF token, or get one if needed.
-        if !self.acquire_csrf_token().await {
-            return Err("Failed to acquire CSRF token");
-        }
+        self.acquire_csrf_token().await;
 
         // Log in
         let response = Client::builder()
@@ -102,7 +100,7 @@ impl UnifiProtectServer {
             }
         }
 
-        // Something went wrong.
+        // Something went wrong, or no CSRF-Token is needed
         false
     }
 

@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -30,7 +29,7 @@ pub struct FeatureFlags {
     has_wifi: bool,
     has_hdr: bool,
     video_modes: Vec<String>,
-    video_mode_max_fps: Vec<HashMap<String, i32>>,
+    video_mode_max_fps: Vec<i32>,
     has_motion_zones: bool,
     has_lcd_screen: bool,
     mount_positions: Vec<String>,

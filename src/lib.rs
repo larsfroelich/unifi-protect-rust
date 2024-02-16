@@ -19,7 +19,7 @@ struct ErrorResponse {
 impl UnifiProtectServer {
     pub fn new(uri: &str) -> UnifiProtectServer {
         UnifiProtectServer {
-            uri: uri.to_string(),
+            uri: if uri.ends_with("/") { String::from(uri.split_at(uri.len()-1).0)} else { uri.to_string() },
             cameras: Vec::new(),
             headers: Default::default(),
         }

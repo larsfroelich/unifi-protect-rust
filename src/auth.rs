@@ -52,7 +52,7 @@ impl UnifiProtectServer {
             .map(|value| value.to_str().unwrap_or(""))
             .unwrap_or("");
 
-        if !csrf_token.is_empty() && self.headers.contains_key("X-CSRF-Token") {
+        if !csrf_token.is_empty() {
             self.headers
                 .insert("X-CSRF-Token", csrf_token.parse().unwrap());
         }

@@ -41,16 +41,24 @@ impl UnifiProtectServer {
                 .await
                 .expect("Failed to send request");
             if !response.status().is_success() {
+                eprintln!("Error: {:?}", response);
+                let status_code = response.status();
                 let error_msg = response
                     .json::<ErrorResponse>()
                     .await
-                    .expect("Failed to parse response json")
-                    .error;
-                if error_msg
-                    .contains("o files found") || error_msg.contains("track information is not valid"){
+                    .ok()
+                    .map(|x|x.error);
+                if error_msg.is_some() && (error_msg.as_ref().unwrap()
+                    .contains("o files found") || error_msg.as_ref().unwrap().contains("track information is not valid")){
                     continue;
+                }else{
+                    if error_msg.is_some() {
+                        eprintln!("Error: {}", error_msg.unwrap());
+                    }else {
+                        eprintln!("Unknown Error - Status Code: {}", status_code);
+                    }
                 }
-                return Err(format!("Failed to download video."));
+                return Err("Failed to download video.".to_string());
             }
             let mut file = std::fs::File::create(output_path).expect("Failed to create file");
             let mut content = Cursor::new(response.bytes().await.expect("Failed to get bytes"));

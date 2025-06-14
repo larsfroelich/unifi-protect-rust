@@ -75,7 +75,6 @@ impl UnifiProtectServer {
         // UniFi OS has cross-site request forgery protection built into its web management UI.
         // We use this fact to fingerprint it by connecting directly to the supplied Protect controller address
         // and see if there's a CSRF token waiting for us.
-        //let client = Client::new();
 
         let response = Client::builder()
             .danger_accept_invalid_certs(true)

@@ -67,6 +67,7 @@ impl UnifiProtectServer {
 
             return Ok(true)
         }
-        return Ok(false)
+
+        Ok(false)
     }
 }

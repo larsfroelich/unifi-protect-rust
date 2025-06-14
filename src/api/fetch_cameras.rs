@@ -23,13 +23,13 @@ impl UnifiProtectServer {
         // fetch the raw JSON text
         let cameras_raw_text = response.text().await;
         if cameras_raw_text.is_err() {
-            return Err(format!("Failed to parse camera-data: {}", cameras_raw_text.err().unwrap().to_string()));
+            return Err(format!("Failed to fetch camera data: {}", cameras_raw_text.err().unwrap().to_string()));
         }
 
         // attempt to parse the most basic camera data
         let parsed_cameras_simple_result = serde_json::from_str::<Vec<UnifiProtectCameraSimple>>(cameras_raw_text.as_ref().unwrap());
         if parsed_cameras_simple_result.is_err() {
-            return Err(format!("Failed to parse camera-data: {}", parsed_cameras_simple_result.err().unwrap().to_string()));
+            return Err(format!("Failed to parse basic camera data: {}", parsed_cameras_simple_result.err().unwrap().to_string()));
         }
         self.cameras_simple = parsed_cameras_simple_result.unwrap();
 
@@ -38,7 +38,7 @@ impl UnifiProtectServer {
         if !parsed_cameras_result.is_err() {
             self.cameras = parsed_cameras_result.unwrap();
         }else if require_detailed_cameras {
-            return Err(format!("Failed to parse camera-data: {}", parsed_cameras_result.err().unwrap().to_string()));
+            return Err(format!("Failed to parse complete camera data: {}", parsed_cameras_result.err().unwrap().to_string()));
         }else{
             println!("Warning: Unable to parse complete set of camera data - data formats dont match");
         }

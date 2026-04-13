@@ -1,4 +1,5 @@
-use tests::BASE_URI;
+mod test_credentials;
+use crate::test_credentials::{BASE_URI};
 
 use unifi_protect::UnifiProtectServer;
 

@@ -1,16 +1,17 @@
-#[cfg(test)]
-mod tests {
-    use unifi_protect::UnifiProtectServer;
-    use test_credentials::BASE_URI;
 
-    #[tokio::test]
-    #[ignore]
-    async fn login_test() {
-        let mut server = UnifiProtectServer::new(BASE_URI); // ( e.g. "https://192.168.1.28")
-        server
-            .login("USERNAME", "PASSWORD")
-            .await
-            .expect("Failed to login");
-        println!("Logged in!");
-    }
+
+mod test_credentials;
+
+use unifi_protect::UnifiProtectServer;
+use crate::test_credentials::{BASE_URI, PASSWORD, USERNAME};
+
+#[tokio::test]
+#[ignore]
+async fn login_test() {
+    let mut server = UnifiProtectServer::new(BASE_URI); // ( e.g. "https://192.168.1.28")
+    server
+        .login(USERNAME, PASSWORD)
+        .await
+        .expect("Failed to login");
+    println!("Logged in!");
 }

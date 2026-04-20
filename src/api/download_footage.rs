@@ -15,7 +15,14 @@ impl UnifiProtectServer {
     ) -> Result<bool, Error> {
         for channel in 0..4 {
             let endpoint = format!(
-                "{}/proxy/protect/api/video/export?camera={}{}&channel={}&filename={}.mp4&lens=0&start={}&end={}&type={}",
+                "{}/proxy/protect/api/video/export?camera={}\
+                {}\
+                &channel={}\
+                &filename={}.mp4\
+                &lens=0\
+                &start={}\
+                &end={}\
+                &type={}",
                 self.uri,
                 camera.id,
                 (if recording_type == "timelapse" {

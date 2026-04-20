@@ -22,7 +22,8 @@ impl UnifiProtectServer {
         let cameras_raw_text = response.text().await?;
 
         // attempt to parse the most basic camera data
-        let parsed_cameras_simple: Vec<UnifiProtectCameraSimple> = serde_json::from_str(&cameras_raw_text)?;
+        let parsed_cameras_simple: Vec<UnifiProtectCameraSimple> = serde_json::from_str(&cameras_raw_text)
+            .map_err(|e| Error::CameraFetchFailed(format!("Failed to parse basic camera data: {}", e)))?;
         self.cameras_simple = parsed_cameras_simple;
 
         // attempt to parse complete camera data
@@ -32,7 +33,7 @@ impl UnifiProtectServer {
             }
             Err(e) => {
                 if require_detailed_cameras {
-                    return Err(Error::Json(e));
+                    return Err(Error::CameraFetchFailed(format!("Failed to parse complete camera data: {}", e)));
                 } else {
                     println!("Warning: Unable to parse complete set of camera data - data formats dont match: {}", e);
                 }

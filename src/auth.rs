@@ -83,22 +83,26 @@ impl UnifiProtectServer {
             .send()
             .await?;
 
-        if response.status().is_success() {
-            let csrf_token = response
-                .headers()
-                .get("X-CSRF-Token")
-                .and_then(|value| value.to_str().ok());
-
-            // We found a token.
-            if let Some(token) = csrf_token {
-                self.headers
-                    .insert("X-CSRF-Token", token.parse()?);
-                return Ok(());
-            }
+        if !response.status().is_success() {
+            return Err(Error::Api(format!(
+                "Failed to acquire CSRF token. Status: {}",
+                response.status()
+            )));
         }
 
-        // Something went wrong, or no CSRF-Token is needed
-        Ok(())
+        let csrf_token = response
+            .headers()
+            .get("X-CSRF-Token")
+            .and_then(|value| value.to_str().ok());
+
+        // We found a token.
+        if let Some(token) = csrf_token {
+            self.headers
+                .insert("X-CSRF-Token", token.parse()?);
+            return Ok(());
+        }
+
+        Err(Error::CsrfTokenMissing)
     }
 
     pub fn clear_login_credentials(&mut self) {

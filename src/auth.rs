@@ -11,7 +11,7 @@ impl UnifiProtectServer {
         }
 
         // Make sure we have a CSRF token, or get one if needed.
-        let _ = self.acquire_csrf_token().await;
+        self.acquire_csrf_token().await?;
 
         // Log in
         let response = Client::builder()

@@ -1,7 +1,6 @@
 use crate::{UnifiProtectCamera, UnifiProtectServer};
 use crate::error::Error;
 use reqwest::Client;
-use crate::camera::UnifiProtectCameraSimple;
 
 impl UnifiProtectServer {
     pub async fn fetch_cameras(&mut self, require_detailed_cameras : bool) -> Result<(), Error> {
@@ -22,9 +21,8 @@ impl UnifiProtectServer {
         let cameras_raw_text = response.text().await?;
 
         // attempt to parse the most basic camera data
-        let parsed_cameras_simple: Vec<UnifiProtectCameraSimple> = serde_json::from_str(&cameras_raw_text)
+        self.cameras_simple = serde_json::from_str(&cameras_raw_text)
             .map_err(|e| Error::CameraFetchFailed(format!("Failed to parse basic camera data: {}", e)))?;
-        self.cameras_simple = parsed_cameras_simple;
 
         // attempt to parse complete camera data
         match serde_json::from_str::<Vec<UnifiProtectCamera>>(&cameras_raw_text) {

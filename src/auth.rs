@@ -30,10 +30,14 @@ impl UnifiProtectServer {
 
         // Something went wrong with the login call, possibly a controller reboot or failure.
         if !response.status().is_success() {
+            let status = response.status();
+            let url = response.url().clone();
+            let body = response.text().await.unwrap_or_else(|_| "Could not read response body".to_string());
             return Err(Error::LoginFailed(format!(
-                "Status: {}, URL: {}",
-                response.status(),
-                response.url()
+                "Status: {}, URL: {}, Body: {}",
+                status,
+                url,
+                body
             )));
         }
 

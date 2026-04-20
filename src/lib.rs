@@ -1,8 +1,11 @@
+pub mod error;
+
 pub mod api;
 pub mod auth;
 pub mod camera;
 
-use camera::*;
+pub use crate::error::Error;
+use crate::camera::*;
 use reqwest::header::HeaderMap;
 
 pub struct UnifiProtectServer {
@@ -13,8 +16,8 @@ pub struct UnifiProtectServer {
 }
 
 #[derive(serde::Deserialize)]
-struct ErrorResponse {
-    error: String,
+pub struct ErrorResponse {
+    pub error: String,
 }
 
 impl UnifiProtectServer {

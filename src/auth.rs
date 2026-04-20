@@ -4,7 +4,7 @@ use reqwest::Client;
 use serde_json::json;
 
 impl UnifiProtectServer {
-    pub async fn login(&mut self, username: &str, password: &str) -> Result<(), Error> {
+    pub async fn login(&mut self, username: &str, password: &str, mfa_token: Option<&str>) -> Result<(), Error> {
         // Already logged in?
         if self.headers.contains_key("Cookie") && self.headers.contains_key("X-CSRF-Token") {
             return Ok(());
@@ -23,7 +23,7 @@ impl UnifiProtectServer {
                 "password": password,
                 "rememberMe": true,
                 "username": username,
-                "token": ""
+                "token": mfa_token.unwrap_or("")
             }))
             .send()
             .await?;
@@ -33,6 +33,13 @@ impl UnifiProtectServer {
             let status = response.status();
             let url = response.url().clone();
             let body = response.text().await.unwrap_or_else(|_| "Could not read response body".to_string());
+
+            if let Ok(json) = serde_json::from_str::<serde_json::Value>(&body) {
+                if json["code"] == "MFA_AUTH_REQUIRED" {
+                    return Err(Error::MfaRequired(body));
+                }
+            }
+
             return Err(Error::LoginFailed(format!(
                 "Status: {}, URL: {}, Body: {}",
                 status,
@@ -102,7 +109,8 @@ impl UnifiProtectServer {
             return Ok(());
         }
 
-        Err(Error::CsrfTokenMissing)
+        // No token found.
+        Ok(())
     }
 
     pub fn clear_login_credentials(&mut self) {

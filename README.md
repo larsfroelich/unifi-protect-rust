@@ -21,11 +21,11 @@ use unifi_protect::UnifiProtectServer;
 let mut server = UnifiProtectServer::new("BASE_URI"); // ( e.g. "https://192.168.1.28")
 // login with username + password credentials (same credentials you would use to login to the system's web portal)
 server
-    .login("USERNAME", "PASSWORD")
+    .login("USERNAME", "PASSWORD", None)
     .await
     .expect("Failed to login");
 server
-    .fetch_cameras()
+    .fetch_cameras(false)
     .await
     .expect("Failed to fetch cameras");
 println!("Found {} cameras", server.cameras.len());

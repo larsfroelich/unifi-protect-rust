@@ -17,8 +17,8 @@ pub enum Error {
     #[error("login failed: {0}")]
     LoginFailed(String),
 
-    #[error("CSRF token missing")]
-    CsrfTokenMissing,
+    #[error("MFA required: {0}")]
+    MfaRequired(String),
 
     #[error("API error: {0}")]
     Api(String),

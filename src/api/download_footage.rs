@@ -1,4 +1,5 @@
 use crate::camera::UnifiProtectCameraSimple;
+use crate::event::MotionEvent;
 use crate::{ErrorResponse, UnifiProtectServer};
 use crate::error::Error;
 use reqwest::Client;
@@ -15,14 +16,7 @@ impl UnifiProtectServer {
     ) -> Result<bool, Error> {
         for channel in 0..4 {
             let endpoint = format!(
-                "{}/proxy/protect/api/video/export?camera={}\
-                {}\
-                &channel={}\
-                &filename={}.mp4\
-                &lens=0\
-                &start={}\
-                &end={}\
-                &type={}",
+                "{}/proxy/protect/api/video/export?camera={}                {}                &channel={}                &filename={}.mp4                &lens=0                &start={}                &end={}                &type={}",
                 self.uri,
                 camera.id,
                 (if recording_type == "timelapse" {
@@ -69,5 +63,20 @@ impl UnifiProtectServer {
         }
 
         Ok(false)
+    }
+
+    pub async fn download_event_footage(
+        &self,
+        camera: &UnifiProtectCameraSimple,
+        event: &MotionEvent,
+        output_path: &str,
+        recording_type: &str,
+        pre_padding_seconds: u64,
+        post_padding_seconds: u64,
+    ) -> Result<bool, Error> {
+        let start_unix = event.start / 1000 - pre_padding_seconds as i64;
+        let end_unix = event.end / 1000 + post_padding_seconds as i64;
+
+        self.download_footage(camera, output_path, recording_type, start_unix, end_unix).await
     }
 }

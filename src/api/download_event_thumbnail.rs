@@ -22,17 +22,16 @@ impl UnifiProtectServer {
             query_params.push(format!("h={}", height));
         }
 
-        // Build the query string
-        let query_string = if query_params.is_empty() {
-            "".to_string()
-        } else {
-            format!("?{}", query_params.join("&"))
-        };
-
-        // Construct the full URL for the thumbnail request
+        // Construct the full URL for the thumbnail request, including query parameters
         let url = format!(
             "{}/proxy/protect/api/events/{}/thumbnail{}",
-            self.uri, event_id, query_string
+            self.uri,
+            event_id,
+            if query_params.is_empty() {
+                "".to_string()
+            } else {
+                format!("?{}", query_params.join("&"))
+            }
         );
 
         // Build and send the HTTP GET request

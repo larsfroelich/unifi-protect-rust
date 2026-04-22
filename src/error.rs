@@ -29,6 +29,12 @@ pub enum Error {
     #[error("failed to download footage: {0}")]
     DownloadFailed(String),
 
+    #[error("failed to fetch events: {0}")]
+    EventFetchFailed(String),
+
+    #[error("failed to download thumbnail: {0}")]
+    ThumbnailDownloadFailed(String),
+
     #[error("other error: {0}")]
     Other(String),
 }

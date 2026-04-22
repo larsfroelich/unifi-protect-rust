@@ -3,8 +3,10 @@ pub mod error;
 pub mod api;
 pub mod auth;
 pub mod camera;
+pub mod event;
 
 pub use crate::error::Error;
+pub use crate::event::*;
 use crate::camera::*;
 use reqwest::header::HeaderMap;
 

@@ -46,9 +46,11 @@ impl UnifiProtectServer {
 
         // Handle failure by reading the response text
         if !response.status().is_success() {
-            let status = response.status();
-            let text = response.text().await.unwrap_or_else(|_| "Could not read response text".to_string());
-            return Err(Error::ThumbnailDownloadFailed(format!("Status: {}, Body: {}", status, text)));
+            return Err(Error::ThumbnailDownloadFailed(format!(
+                "Status: {}, Body: {}",
+                response.status(),
+                response.text().await.unwrap_or_else(|_| "Could not read response text".to_string())
+            )));
         }
 
         // Create the output file and stream the response content into it
